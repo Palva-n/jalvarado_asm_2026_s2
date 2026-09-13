@@ -54,7 +54,7 @@ class SignalAnalyzer:
                 X_[k] += x[n] * np.exp(-2j*np.pi*k*n/size)
         return X_
 
-    # generar convolucion y multiplicacion en frecuencia. 
+    
     
     def __FFT(self, x):
 
@@ -86,7 +86,7 @@ class SignalAnalyzer:
         if self.DFT_ans is  None:
             raise ValueError("No se ha ejecutado DFT")
         if name is None: 
-            raise ValueError("No sea pendejo, pongale un nombre")
+            raise ValueError("Nombre vacio o invalido")
         ans = self.DFT_ans 
         mitad = len(self.x)//2 
 
@@ -126,7 +126,7 @@ class SignalAnalyzer:
         if self.FFT_ans is None:
             raise ValueError("No se ha ejecutado FFT")
         if name is None: 
-            raise ValueError("No sea pendejo, pongale un nombre")
+            raise ValueError("Nombre vacio o invalido")
         
         ans = self.FFT_ans 
         mitad = len(self.x)//2 

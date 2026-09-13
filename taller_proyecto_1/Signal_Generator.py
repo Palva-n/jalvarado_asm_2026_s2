@@ -8,6 +8,19 @@ class SignalGenerator:
         self.f_sonido = f_sonido
         self.Amplitude = A
 
+
+    def generate_signal(self, type):
+        t = np.linspace(0, self.dur, int(self.dur * self.sample_rate), endpoint=False)
+        if type is None:
+            raise ValueError("No se ingreso un tipo")
+        if type == "Coseno":
+            return self.Amplitude * np.cos(2*np.pi*self.f_sonido*t)
+        if type == "Seno":
+            return self.Amplitude * np.sin(2*np.pi*self.f_sonido*t)
+        
+    
+
+    
     def generate_chirp(self, f0, f1):
         N = int(self.dur * self.sample_rate)
         t = np.linspace(0, self.dur, N, endpoint=False)
