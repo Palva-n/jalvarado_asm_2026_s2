@@ -1,0 +1,4 @@
+caso,semilla,fs_Hz,N_muestras,duracion_s,frecuencias_utiles_Hz,tipo_ruido,snr_objetivo_dB,snr_obtenida_wav_dB,diferencia_dB
+caso_1,2026105,16000,96000,6.0,"[440.0, 880.0, 1320.0]",tonal,5.0,4.9999,-0.0001
+caso_2,2026104,16000,96000,6.0,"[440.0, 880.0, 1320.0]",blanco,5.0,4.9998,-0.0002
+caso_3,2026106,16000,96000,6.0,"[440.0, 880.0, 1320.0]",banda,3.0,2.9997,-0.0003

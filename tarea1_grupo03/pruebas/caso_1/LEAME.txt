@@ -1,0 +1,3 @@
+03_entrada_contaminada.wav: señal que se aplica al sistema.
+01_referencia_limpia.wav: referencia reservada para calcular métricas.
+02_ruido.wav: componente de ruido aislada.
