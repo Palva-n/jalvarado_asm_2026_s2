@@ -1,0 +1,10 @@
+caso,tipo_ruido,metodo,snr_entrada_db,snr_salida_db,delta_snr_db,mse_entrada,mse_salida,energia_util_pct,atenuacion_ruido_db,tiempo_us_por_bloque,limite_tiempo_real_us,memoria_bytes_float32,memoria_bytes_q15
+caso_1,tonal,sin_filtrar,5.007,5.007,0.0,3.1473e-02,3.1473e-02,100.0,0.0,,32000.0,,
+caso_1,tonal,temporal,5.007,24.456,19.449,3.1473e-02,3.5734e-04,99.64,194.99,5.34,32000.0,36,18
+caso_1,tonal,espectral,5.007,41.434,36.426,3.1473e-02,7.1665e-06,99.94,56.47,115.02,32000.0,20496,10248
+caso_2,blanco,sin_filtrar,5.015,5.015,0.0,1.3915e-02,1.3915e-02,100.71,0.0,,32000.0,,
+caso_2,blanco,temporal,5.015,5.113,0.098,1.3915e-02,1.3604e-02,100.34,0.15,5.51,32000.0,36,18
+caso_2,blanco,espectral,5.015,14.865,9.85,1.3915e-02,1.4403e-03,98.22,10.0,115.07,32000.0,20496,10248
+caso_3,banda,sin_filtrar,3.034,3.034,0.0,1.5133e-02,1.5133e-02,98.17,0.0,,32000.0,,
+caso_3,banda,temporal,3.034,3.071,0.037,1.5133e-02,1.5005e-02,97.82,0.06,5.41,32000.0,36,18
+caso_3,banda,espectral,3.034,10.548,7.514,1.5133e-02,2.6826e-03,87.17,8.48,127.65,32000.0,20496,10248
