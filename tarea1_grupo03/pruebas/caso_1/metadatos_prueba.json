@@ -1,0 +1,34 @@
+{
+  "nombre_prueba": "caso_1",
+  "modo": "manual",
+  "semilla": 2026105,
+  "fs_Hz": 16000,
+  "duracion_s": 6.0,
+  "tipo_senal": "multitono",
+  "frecuencias_utiles_Hz": [
+    440.0,
+    880.0,
+    1320.0
+  ],
+  "amplitudes_utiles": [
+    1.0,
+    0.55,
+    0.3
+  ],
+  "fases_grados": [
+    0.0,
+    35.0,
+    -50.0
+  ],
+  "tipo_ruido": "tonal",
+  "snr_objetivo_dB": 5.0,
+  "snr_obtenida_dB": 5.000000000000013,
+  "frecuencia_interferencia_Hz": 1750.0,
+  "banda_ruido_Hz": [
+    2500.0,
+    3800.0
+  ],
+  "numero_impulsos": 10,
+  "pico_maximo": 0.8,
+  "ganancia_comun": 0.37889772262219884
+}
