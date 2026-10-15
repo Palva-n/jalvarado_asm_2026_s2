@@ -1,0 +1,101 @@
+{
+  "descripcion": "Parámetros de entrada de los tres casos de prueba (parte 2.2). Con la semilla y estos parámetros, src/generador.py reproduce exactamente los archivos de pruebas/. Los campos frecuencia_interferencia_Hz y banda_ruido_Hz solo se usan según tipo_ruido.",
+  "casos": [
+    {
+      "nombre_prueba": "caso_1",
+      "modo": "manual",
+      "semilla": 2026105,
+      "fs_Hz": 16000,
+      "duracion_s": 6.0,
+      "tipo_senal": "multitono",
+      "frecuencias_utiles_Hz": [
+        440.0,
+        880.0,
+        1320.0
+      ],
+      "amplitudes_utiles": [
+        1.0,
+        0.55,
+        0.3
+      ],
+      "fases_grados": [
+        0.0,
+        35.0,
+        -50.0
+      ],
+      "tipo_ruido": "tonal",
+      "snr_objetivo_dB": 5.0,
+      "frecuencia_interferencia_Hz": 1750.0,
+      "banda_ruido_Hz": [
+        2500.0,
+        3800.0
+      ],
+      "numero_impulsos": 10,
+      "pico_maximo": 0.8
+    },
+    {
+      "nombre_prueba": "caso_2",
+      "modo": "manual",
+      "semilla": 2026104,
+      "fs_Hz": 16000,
+      "duracion_s": 6.0,
+      "tipo_senal": "multitono",
+      "frecuencias_utiles_Hz": [
+        440.0,
+        880.0,
+        1320.0
+      ],
+      "amplitudes_utiles": [
+        1.0,
+        0.55,
+        0.3
+      ],
+      "fases_grados": [
+        0.0,
+        35.0,
+        -50.0
+      ],
+      "tipo_ruido": "blanco",
+      "snr_objetivo_dB": 5.0,
+      "frecuencia_interferencia_Hz": 1750.0,
+      "banda_ruido_Hz": [
+        2500.0,
+        3800.0
+      ],
+      "numero_impulsos": 10,
+      "pico_maximo": 0.8
+    },
+    {
+      "nombre_prueba": "caso_3",
+      "modo": "manual",
+      "semilla": 2026106,
+      "fs_Hz": 16000,
+      "duracion_s": 6.0,
+      "tipo_senal": "multitono",
+      "frecuencias_utiles_Hz": [
+        440.0,
+        880.0,
+        1320.0
+      ],
+      "amplitudes_utiles": [
+        1.0,
+        0.55,
+        0.3
+      ],
+      "fases_grados": [
+        0.0,
+        35.0,
+        -50.0
+      ],
+      "tipo_ruido": "banda",
+      "snr_objetivo_dB": 3.0,
+      "frecuencia_interferencia_Hz": 1750.0,
+      "banda_ruido_Hz": [
+        500.0,
+        1500.0
+      ],
+      "numero_impulsos": 10,
+      "pico_maximo": 0.8
+    }
+  ]
+}
