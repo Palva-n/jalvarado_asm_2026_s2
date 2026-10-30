@@ -1,0 +1,188 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage[margin=2.5cm]{geometry}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  language=Python
+}
+
+\title{Taller semana 12: FFT y Sistemas de Modulación}
+\author{CE1110: Análisis de Señales Mixtas \\ Integrantes: Jorge Pablo Porras \\ Marcelo Matey Rodriguez
+\\ Josue Adrian Perez Perez}
+\date{30 de octubre de 2026}
+
+\begin{document}
+\maketitle
+
+% =====================================================================
+% PARTE 1: prototipado de frecuencias del sistema (llenar) 
+% =====================================================================
+\section{Parte 1: Frecuencias del sistema}
+% (Completa el integrante responsable de la parte 1)
+
+% =====================================================================
+% PARTE 2: emisor con frecuencias establecidas
+% =====================================================================
+\section{Parte 2: Emisor con frecuencias establecidas}
+
+\subsection{Objetivo}
+Generar una señal de prueba formada por las frecuencias definidas en la
+parte~1 y usarla como entrada del receptor implementado en la
+Raspberry Pi Pico~W, para comprobar que el receptor identifica cada
+componente en frecuencia.
+
+\subsection{Señal generada}
+El emisor produce una suma de tres senoidales:
+\begin{equation}
+  x[n] = \sum_{i=1}^{3} A_i \,\sin\!\left(\frac{2\pi f_i\, n}{f_s} + \varphi_i\right),
+  \qquad n = 0,1,\dots,N_{\text{tot}}-1
+\end{equation}
+con los parámetros de la Tabla~\ref{tab:param}. Después de sumar, la señal
+se normaliza para que su valor máximo en magnitud sea $0.6$ de la escala
+completa.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{cccc}
+    \toprule
+    Componente & $f_i$ (Hz) & $A_i$ (relativa) & $\varphi_i$ (grados) \\
+    \midrule
+    1 & 440  & 1.00 & $0$   \\
+    2 & 880  & 0.55 & $35$  \\
+    3 & 1320 & 0.30 & $-50$ \\
+    \bottomrule
+  \end{tabular}
+  \caption{Parámetros de las componentes del emisor.}
+  \label{tab:param}
+\end{table}
+
+\subsection{Criterios de diseño y justificación}
+
+\paragraph{Frecuencia de muestreo.}
+Se usa $f_s = 16000$~Hz. Por el teorema de muestreo, la máxima frecuencia
+representable es $f_s/2 = 8000$~Hz, mucho mayor que la componente más alta
+($1320$~Hz), por lo que no hay aliasing. Además, es del mismo orden que la
+frecuencia de muestreo efectiva del receptor ($\approx 16220$~Hz medida en
+la Pico), lo que evita trabajar con tasas muy distintas entre emisor y
+receptor.
+
+\paragraph{Frecuencias, amplitudes y fases.}
+Las tres frecuencias son enteras y relacionadas armónicamente
+($440$, $2\cdot 440$, $3\cdot 440$~Hz). Las amplitudes decrecen
+($1.00 > 0.55 > 0.30$) para que el receptor tenga que detectar componentes
+con niveles distintos y no solo la más fuerte. Las fases distintas de cero
+verifican que la detección de picos en la magnitud del espectro no depende
+de la fase inicial de cada componente.
+
+\paragraph{Resolución espectral.}
+El receptor trabaja con bloques de $N = 1024$ muestras. La resolución en
+frecuencia es
+\begin{equation}
+  \Delta f = \frac{f_s}{N} \approx \frac{16220}{1024} \approx 15.8\ \text{Hz}.
+\end{equation}
+Las frecuencias del emisor no coinciden exactamente con un bin
+(por ejemplo, $440/15.8 \approx 27.8$), por lo que aparece fuga espectral;
+el receptor aplica una ventana de Hann para reducirla.
+
+\paragraph{Rampa al inicio y al final.}
+Los primeros y últimos $20$~ms ($0.02\cdot 16000 = 320$ muestras) se
+multiplican por una rampa $\sin^2$, para evitar un salto brusco
+(chasquido) al comenzar y terminar la reproducción, que de otra forma
+introduciría energía en todo el espectro.
+
+\paragraph{Formato de salida.}
+La señal se guarda como archivo WAV de $16$~bits con signo, a
+$f_s = 16000$~Hz y duración de $10$~s, para reproducirla desde la
+computadora.
+
+\paragraph{Reproducción desde la computadora.}
+Según lo confirmado por el profesor en el canal de Discord del curso
+(captura en la Figura~\ref{fig:discord}), el hardware del proyecto es la
+Pico y el micrófono, y el audio puede reproducirse desde la computadora.
+Por eso el emisor se implementa como un programa en la computadora que
+genera el archivo \texttt{tonos.wav}, y el micrófono conectado a la Pico
+recibe la señal por el aire.
+
+\begin{figure}[h]
+  \centering
+  % \includegraphics[width=0.8\textwidth]{discord.png}
+  \fbox{\parbox{0.7\textwidth}{\centering Captura de la conversación con el profesor \\ (insertar \texttt{discord.png})}}
+  \caption{Confirmación del profesor sobre el hardware y la reproducción de audio desde la computadora.}
+  \label{fig:discord}
+\end{figure}
+
+\subsection{Implementación}
+El emisor está en \texttt{emisor\_tonos.py} (Python con \texttt{numpy} y
+\texttt{scipy}). Los pasos son:
+\begin{enumerate}
+  \item Construir el vector de tiempo $t[n] = n/f_s$.
+  \item Sumar las tres senoidales con sus amplitudes y fases.
+  \item Normalizar al nivel de salida deseado.
+  \item Aplicar la rampa de $20$~ms en ambos extremos.
+  \item Guardar el resultado como \texttt{tonos.wav} (enteros de $16$~bits).
+\end{enumerate}
+
+\subsection{Verificación con el receptor}
+El receptor (\texttt{receptor\_tonos.py}) corre en la Pico. Captura un
+bloque de $N=1024$ muestras con el ADC, quita el nivel de DC, aplica la
+ventana de Hann, calcula la FFT y marca como pico cada máximo local que
+supere $10$ veces la mediana del espectro. Una frecuencia esperada se
+considera detectada si hay un pico a menos de $30$~Hz.
+
+Con \texttt{tonos.wav} reproducido cerca del micrófono, el receptor
+reportó los picos de la Tabla~\ref{tab:result}.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{ccc}
+    \toprule
+    Frecuencia esperada (Hz) & Pico medido (Hz) & Resultado \\
+    \midrule
+    440  & 443.5  & Detectada \\
+    880  & 887.0  & Detectada \\
+    1320 & 1330.5 & Detectada \\
+    \bottomrule
+  \end{tabular}
+  \caption{Picos reportados por la Pico en un bloque representativo.}
+  \label{tab:result}
+\end{table}
+
+Las diferencias respecto a las frecuencias esperadas (hasta unos $10$~Hz)
+son menores que un bin, por lo que son consistentes con la resolución de
+$\Delta f \approx 15.8$~Hz.
+
+\subsection{Latencia}
+El análisis de un bloque (quitar DC, ventana, FFT y búsqueda de picos)
+tardó aproximadamente $100$~ms en la Pico. Como un bloque dura
+$N/f_s \approx 63$~ms, el receptor en esta versión captura y analiza en
+serie, de modo que no procesa audio continuo sin huecos.
+% (Opcional) añadir aquí la gráfica del espectro o una captura de la consola de Thonny.
+
+\subsection{Limitaciones}
+\begin{itemize}
+  \item El resultado depende del nivel de volumen y de la distancia entre
+        parlante y micrófono; con nivel muy bajo la señal se acerca al piso
+        de ruido del ADC.
+  \item La frecuencia medida tiene incertidumbre de aproximadamente
+        $\pm\Delta f/2 \approx \pm 8$~Hz por la resolución del bin.
+  \item Algunos bloques pueden reportar frecuencias como no detectadas si
+        el audio empieza o termina durante la captura.
+\end{itemize}
+
+% =====================================================================
+% PARTE 3: estrategia de validación del receptor (llenar) 
+% =====================================================================
+\section{Parte 3: Estrategia de validación del receptor}
+% (Completa el integrante responsable de la parte 3)
+
+\end{document}
