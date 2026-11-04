@@ -8,7 +8,7 @@ from ulab import numpy as np
 # Modo PWM de la fuente de la Pico W (baja el ruido del ADC)
 Pin("WL_GPIO1", Pin.OUT, value=1)
 
-# ---------------- Parametros ----------------
+# Parametros 
 N = 1024
 FS_OBJETIVO = 16000
 FS_REAL = 16220                      # Hz, fs efectiva medida del timer
@@ -17,7 +17,7 @@ TOLERANCIA_HZ = 30                   # un poco mas de 1 bin (fs/N ~ 15.8 Hz)
 FACTOR_UMBRAL = 10                   # un pico debe ser 10 veces la mediana del espectro
 MAX_PICOS = 5
 
-# ---------------- Preparacion (una sola vez) ----------------
+#  Preparacion (una sola vez) 
 datos = array('H', (0 for _ in range(N)))
 adc = ADC(Pin(26))
 
@@ -80,7 +80,7 @@ def buscar_picos(mag):
     return picos[:MAX_PICOS]
 
 
-# ---------------- Ciclo principal ----------------
+#  Ciclo principal 
 while True:
     capturar_bloque()
 
