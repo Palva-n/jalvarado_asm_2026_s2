@@ -1,0 +1,37 @@
+id,prueba,repeticion,configuracion,valida,banda_lo_hz,banda_hi_hz,solo_ruido,temporal_dB,espectral_dB
+P3_r1_prom10,P3,1,"defecto, prominencia=10",si,80,300,no,-0.0,-1.0
+P3_r1_prom10,P3,1,"defecto, prominencia=10",si,300,1500,no,-0.0,-0.6
+P3_r1_prom10,P3,1,"defecto, prominencia=10",si,1500,3000,no,-0.0,-7.0
+P3_r1_prom10,P3,1,"defecto, prominencia=10",si,3000,3500,no,-2.7,-9.0
+P3_r1_prom10,P3,1,"defecto, prominencia=10",si,3500,7500,si,-38.6,-7.8
+P3_agr_a,P3,1,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,80,300,no,-0.0,-1.8
+P3_agr_a,P3,1,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,300,1500,no,-0.0,-1.0
+P3_agr_a,P3,1,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,1500,3000,no,-0.0,-9.8
+P3_agr_a,P3,1,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,3000,3500,no,-3.4,-16.8
+P3_agr_a,P3,1,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,3500,7500,si,-34.8,-14.8
+P3_agr_b,P3,2,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,80,300,no,-0.0,-1.7
+P3_agr_b,P3,2,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,300,1500,no,-0.0,-1.1
+P3_agr_b,P3,2,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,1500,3000,no,-0.0,-10.5
+P3_agr_b,P3,2,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,3000,3500,no,-2.6,-12.7
+P3_agr_b,P3,2,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,3500,7500,si,-28.1,-15.5
+P3_agr_c,P3,3,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,80,300,no,-0.0,-1.6
+P3_agr_c,P3,3,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,300,1500,no,-0.0,-1.9
+P3_agr_c,P3,3,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,1500,3000,no,-0.0,-13.3
+P3_agr_c,P3,3,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,3000,3500,no,-3.8,-20.5
+P3_agr_c,P3,3,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,3500,7500,si,-30.5,-17.5
+P4_r1,P4,1,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,80,600,no,-0.0,-3.2
+P4_r1,P4,1,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,600,1100,no,-0.0,-1.9
+P4_r1,P4,1,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,1100,3000,no,-3.7,-14.6
+P4_r1,P4,1,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,3000,7500,si,-49.8,-14.0
+P4_r2,P4,2,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,80,600,no,-0.8,-7.2
+P4_r2,P4,2,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,600,1100,no,-0.0,-0.7
+P4_r2,P4,2,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,1100,3000,no,-4.4,-10.4
+P4_r2,P4,2,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,3000,7500,si,-51.8,-8.6
+P4_r3_debil,P4,3,"prominencia=4, agresividad=3, piso_ganancia=0.03",no,80,600,no,-0.1,-4.5
+P4_r3_debil,P4,3,"prominencia=4, agresividad=3, piso_ganancia=0.03",no,600,1100,no,-0.0,-1.0
+P4_r3_debil,P4,3,"prominencia=4, agresividad=3, piso_ganancia=0.03",no,1100,3000,no,-4.6,-13.5
+P4_r3_debil,P4,3,"prominencia=4, agresividad=3, piso_ganancia=0.03",no,3000,7500,si,-47.5,-9.8
+P4_r3,P4,3,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,80,600,no,-0.3,-7.5
+P4_r3,P4,3,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,600,1100,no,-0.0,-0.5
+P4_r3,P4,3,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,1100,3000,no,-4.5,-12.3
+P4_r3,P4,3,"prominencia=4, agresividad=3, piso_ganancia=0.03",si,3000,7500,si,-52.9,-9.7

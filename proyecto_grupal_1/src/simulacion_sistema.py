@@ -155,7 +155,7 @@ class Nodo1:
         k = k_min + int(np.argmax(magnitud[k_min:-1]))
 
         piso = np.median(magnitud) + EPS
-        nivel_db = float(20 * np.log10(magnitud[k] / piso))
+        nivel_db = float(20 * np.log10((magnitud[k] + EPS) / piso))
         if nivel_db < UMBRAL_PROMINENCIA_DB:
             return 0.0, nivel_db
 
@@ -178,7 +178,17 @@ def disenar_notch(f0, q=Q_NOTCH, fs=FS):
 
 
 class Nodo2:
-    def __init__(self):
+    # fc_pasabajos = None -> solo el notch adaptativo (IIR)
+    # fc_pasabajos = Hz   -> notch (IIR) en cascada con un pasabajos FIR
+    def __init__(self, fc_pasabajos=None, taps=63):
+        # --- Etapa FIR: pasabajos con ventana de Hamming (fase lineal) ---
+        # y[n] = sum_{k=0}^{taps-1} h[k] x[n-k]   (ecuacion 1 con a_k = 0)
+        self.usa_fir = fc_pasabajos is not None
+        if self.usa_fir:
+            self.h = signal.firwin(taps, fc_pasabajos, window="hamming", fs=FS)
+            self.estado_fir = np.zeros(taps - 1)
+        self.retardo_fir = (taps - 1) // 2 if self.usa_fir else 0   # muestras
+
         self.frecuencia_actual = 0.0
         self.b = np.array([1.0, 0.0, 0.0])
         self.a = np.array([1.0, 0.0, 0.0])
@@ -201,6 +211,8 @@ class Nodo2:
 
         x = cuentas_a_float(datos["muestras"])
         salida, self.estado = signal.lfilter(self.b, self.a, x, zi=self.estado)
+        if self.usa_fir:
+            salida, self.estado_fir = signal.lfilter(self.h, [1.0], salida, zi=self.estado_fir)
 
         salida_int16 = np.clip(np.round(salida * ADC_MEDIO), -32768, 32767).astype(np.int16)
         trama_salida = empaquetar_trama(datos["n_bloque"], self.frecuencia_actual, 0.0, salida_int16)
